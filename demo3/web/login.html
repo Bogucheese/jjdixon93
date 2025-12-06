@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>液态玻璃登录</title>
+    <style>
+        /* 全局重置与字体设定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 深色丰富渐变背景，奠定基调 */
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            overflow: hidden; /* 防止液态球体撑开滚动条 */
+            position: relative;
+        }
+
+        /* --- 液态背景元素 (Liquid Elements) --- */
+        .liquid-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px); /* 高度模糊制造液态感 */
+            opacity: 0.6;
+            z-index: 0;
+            animation: floatAnimation 15s infinite alternate ease-in-out;
+        }
+
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            /* 鲜艳的渐变色彩 */
+            background: linear-gradient(to right, #ff00cc, #333399);
+            top: -10%;
+            left: -10%;
+            animation-delay: -2s;
+        }
+
+        .shape-2 {
+            width: 600px;
+            height: 600px;
+            /* 另一种互补的渐变色彩 */
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            bottom: -15%;
+            right: -15%;
+        }
+
+        /* 液态元素的漂浮动画 */
+        @keyframes floatAnimation {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translate(50px, 30px) rotate(20deg) scale(1.1);
+            }
+            100% {
+                transform: translate(-30px, -50px) rotate(-10deg) scale(0.9);
+            }
+        }
+
+        /* --- 毛玻璃登录卡片 (Frosted Glass Card) --- */
+        .login-container {
+            position: relative;
+            width: 400px;
+            padding: 40px;
+            z-index: 1; /* 确保在液态背景之上 */
+
+            /* 核心毛玻璃效果 */
+            background: rgba(255, 255, 255, 0.05); /* 极低透明度的白色背景 */
+            backdrop-filter: blur(20px); /* 背景模糊 */
+            -webkit-backdrop-filter: blur(20px); /* Safari 兼容 */
+            border-radius: 25px;
+            /* 边缘高光，增加玻璃质感 */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            /* 柔和的阴影带来层次感 */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+            color: #fff;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* --- 名人名言区域 --- */
+        .quote-section {
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-style: normal;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- 表单元素 --- */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            /* 输入框也要有通透感 */
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* 输入框聚焦时的效果 */
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(0, 198, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.2);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 登录按钮 */
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            /* 按钮使用醒目的渐变 */
+            background: linear-gradient(45deg, #ff00cc, #333399);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 204, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 底部链接 */
+        .links {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .links a:hover {
+            color: #00c6ff;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 450px) {
+            .login-container {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            .shape-1, .shape-2 {
+                filter: blur(50px); /* 小屏幕减少模糊半径以提高性能 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="liquid-shape shape-1"></div>
+<div class="liquid-shape shape-2"></div>
+
+<div class="login-container">
+    <h2>欢迎回来</h2>
+
+    <div class="quote-section">
+        “预测未来的最好方式就是去创造它。”
+        <span class="quote-author">— 艾伦·凯 (Alan Kay)</span>
+    </div>
+
+    <form action="login" method="post">
+        <div class="input-group">
+            <label for="username">用户名</label>
+            <input type="text" id="username" name="username" placeholder="请输入您的用户名">
+        </div>
+        <div class="input-group">
+            <label for="password">密码</label>
+            <input type="password" id="password" name="password" placeholder="请输入您的密码">
+        </div>
+
+        <button type="submit" class="login-btn">登 录</button>
+
+        <div class="links">...</div>
+    </form>
+</div>
+
+</body>
+</html>
